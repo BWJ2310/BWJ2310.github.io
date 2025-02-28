@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "hexo-deployer-git": "^4.0.0"
+    "hexo": "^7.3.0"
   }
 }
