@@ -1,4 +1,0 @@
-deploy:
-  type: git
-
-theme: next
