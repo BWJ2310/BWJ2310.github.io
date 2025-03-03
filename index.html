@@ -14,8 +14,12 @@
    <!-- Custom Styles -->
    <style>
      :root {
-       /* --theme-hue: 325; */
-     }
+       --base-font-size: 14px;
+       --theme-color   : #FFD700;
+       --cover-button-primary-color  :#000;
+       --cover-button-background  : var(--theme-color);
+        --cover-button-color       : #000;
+}
    </style>
 </head>
 <body>
@@ -24,8 +28,15 @@
    <script>
      // Docsify Configuration
      window.$docsify = {
-       // ..
-     };
+      name: 'GooseLang',
+    loadSidebar: true,
+    loadNavbar: true,
+    hideSidebar: false,
+    coverpage: true,
+    onlyCover: true,
+    subMaxLevel: 0,
+
+  }
    </script>
 
    <!-- Required -->
