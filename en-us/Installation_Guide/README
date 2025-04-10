@@ -37,6 +37,16 @@ cd /GooseLang-Dev
 yarn
 ```
 
+3. Install the default UI addon (optional, for frontend development):
+```bash
+yarn gooselang addon add @gooselang/ui-default
+```
+
+4. Install the language settings addon (optional):
+```bash
+yarn gooselang addon add @gooselang/language-settings
+```
+
 ## Running the Application
 
 ### Start the Backend
@@ -45,9 +55,20 @@ yarn debug --port=2333 --watch
 ```
 
 ### Start the Frontend
+(Ensure the default UI addon is installed first, see Project Setup step 3)
 ```bash
 yarn build:ui:dev
 ```
+## Post-Installation Steps
+
+### Make User Super Admin
+
+After registering a user, you can make them a super admin using their User ID (e.g., 2 for the second registered user):
+
+```bash
+yarn gooselang cli user setSuperAdmin 2
+```
+
 
 ## Troubleshooting
 
