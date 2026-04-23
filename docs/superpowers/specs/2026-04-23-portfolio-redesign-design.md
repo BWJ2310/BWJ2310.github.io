@@ -65,6 +65,17 @@ Allowed evolution:
 - project and blog layouts can vary more than the shell
 - typography can use controlled modes in scale, density, and case without drifting into arbitrary font changes
 
+Minimum visual acceptance checks:
+
+- primary surfaces and controls use zero-radius corners
+- base page background uses the off-white foundation from [DESIGN.md](C:\Users\jun12\Desktop\Profile\BWJ2310.github.io\DESIGN.md)
+- dark surface panels appear in the hero and major content frames
+- accent usage is constrained to the cyan and supporting blue roles from [DESIGN.md](C:\Users\jun12\Desktop\Profile\BWJ2310.github.io\DESIGN.md)
+- Inter remains the default type family across shell and content
+- the main page shell uses a bounded max-width grid rather than full-width generic `shadcn` spacing
+- homepage includes the five approved sections in the specified order
+- the result must not look like default `shadcn` starter styling with token colors swapped
+
 ## Information Architecture
 
 Top-level routes:
@@ -128,6 +139,25 @@ Owns:
 
 The content repo should not contain application logic.
 
+### Source of Truth Contract
+
+Default assumptions for the first implementation:
+
+- the content repo is a public GitHub repository
+- the authoritative branch is `main`
+- the app reads from that branch only
+- Vercel fetches the content repo without authentication for the public-repo case
+
+Configuration should still be centralized through environment variables so the source can be changed later without refactoring the fetch layer.
+
+Required environment inputs:
+
+- `CONTENT_REPO_OWNER`
+- `CONTENT_REPO_NAME`
+- `CONTENT_REPO_REF` with default `main`
+
+If the repo later becomes private, the fetch layer can be extended to use a read-only GitHub token, but private-repo support is not required for the first implementation.
+
 ## Content Repository Shape
 
 ```txt
@@ -154,6 +184,15 @@ Rules:
 - child page order is defined explicitly through frontmatter `order`
 - child page header comes from `title`
 - subnav label can use `navTitle`; otherwise fallback to `title`, then humanized filename
+
+Child-page validity rules:
+
+- only `.mdx` siblings of `index.mdx` are routable child pages
+- every routable child page must define `title` and integer `order`
+- `order` values must be unique within a project
+- pages with missing or duplicate `order` are invalid
+- invalid child pages are excluded from generated routes and project subnav
+- non-routable helper `.mdx` conventions are not supported in the first implementation
 
 ## Content Types
 
@@ -241,6 +280,25 @@ Behavior:
 - content authors can create richer narrative pages without escaping the system
 
 MDX should not be treated as an unrestricted HTML page builder. It can render custom React components, but content should only use approved primitives and storytelling blocks from the app.
+
+### Remote MDX Execution Boundary
+
+Remote MDX is treated as trusted content input, not arbitrary application code.
+
+Allowed:
+
+- markdown
+- JSX tags that map to app-registered components
+- serializable component props
+- fenced code blocks
+
+Disallowed:
+
+- `import` or `export` statements in remote content
+- arbitrary JavaScript functions or module logic
+- unknown component names that are not registered by the app
+
+Disallowed constructs should fail that page clearly rather than being partially executed or silently ignored.
 
 ## Page System
 
@@ -369,6 +427,22 @@ Representative components:
 5. Routes render the compiled content inside the portfolio shell.
 6. Remote content should use cached server fetching with `revalidate: 600`.
 
+## Remote Asset Contract
+
+Colocated content assets should be referenced relatively from MDX or frontmatter, for example:
+
+- `./cover.png`
+- `./image-2.jpg`
+
+The app should resolve those relative paths against the owning content folder and transform them into raw GitHub asset URLs for the configured repo/ref.
+
+First implementation rules:
+
+- remote images are served from `raw.githubusercontent.com`
+- the app configures `next/image` remote patterns for that host
+- frontmatter image fields such as `image` and `cover` should use relative paths, not hardcoded CDN URLs
+- if a referenced asset does not exist, render a simple unavailable-media frame instead of inventing substitute content
+
 ## Rendering Rules
 
 - The shell follows [DESIGN.md](C:\Users\jun12\Desktop\Profile\BWJ2310.github.io\DESIGN.md) loosely and consistently.
@@ -413,7 +487,7 @@ Behavior:
 - if remote content cannot be fetched, show an explicit error state for the affected page or index
 - if content parsing fails, treat the entry as unavailable rather than synthesizing fallback content
 - unknown slugs should use proper `not-found` handling
-- missing images may use a simple framed placeholder to preserve layout
+- missing images may use a simple framed unavailable-media placeholder to preserve layout; this is the only allowed visual fallback because it does not invent content
 - do not attempt to normalize or invent content from incomplete remote sources
 
 ## Verification
