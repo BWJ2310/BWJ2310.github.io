@@ -13,7 +13,7 @@ export default function ContactPage() {
       />
       <div className="mt-6 flex flex-wrap gap-4 text-[10px] uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
         <Link href="mailto:hello@example.com">Email</Link>
-        <Link href="https://github.com/jun1216wei">GitHub</Link>
+        <Link href="https://github.com/BWJ2310">GitHub</Link>
       </div>
     </SectionFrame>
   )

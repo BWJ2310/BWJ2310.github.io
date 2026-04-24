@@ -24,7 +24,7 @@ The app reads portfolio content from a separate public GitHub repository.
 Required Vercel environment variables:
 
 ```bash
-CONTENT_REPO_OWNER=jun1216wei
+CONTENT_REPO_OWNER=BWJ2310
 CONTENT_REPO_NAME=BWJ2310-portfolio-content
 CONTENT_REPO_REF=main
 ```
