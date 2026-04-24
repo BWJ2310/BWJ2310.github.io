@@ -6,6 +6,6 @@ import BlogPage from "@/app/blog/page"
 describe("BlogPage", () => {
   it("renders a blog archive heading", async () => {
     render(await BlogPage())
-    expect(screen.getByRole("heading", { name: /blog/i })).toBeInTheDocument()
+    expect(screen.getByRole("heading", { level: 1, name: /^blog$/i })).toBeInTheDocument()
   })
 })

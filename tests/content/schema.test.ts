@@ -27,6 +27,15 @@ describe("content schemas", () => {
     expect(result.success).toBe(false)
   })
 
+  it("rejects zero-based child page ordering", () => {
+    const result = projectChildSchema.safeParse({
+      title: "Story",
+      order: 0,
+    })
+
+    expect(result.success).toBe(false)
+  })
+
   it("accepts a blog post", () => {
     const result = blogSchema.safeParse({
       title: "Introducing Jun",

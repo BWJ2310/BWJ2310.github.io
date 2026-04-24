@@ -13,6 +13,18 @@ export function resolveContentAsset({
   contentDir,
   assetPath,
 }: ResolveContentAssetArgs) {
-  const normalizedPath = assetPath.replace(/^.\//, "")
+  if (/^https?:\/\//i.test(assetPath) || assetPath.startsWith("/")) {
+    return assetPath
+  }
+
+  const normalizedPath = assetPath.replace(/^\.\//, "")
   return `https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${contentDir}/${normalizedPath}`
+}
+
+export function createContentAssetResolver(args: Omit<ResolveContentAssetArgs, "assetPath">) {
+  return (assetPath: string) =>
+    resolveContentAsset({
+      ...args,
+      assetPath,
+    })
 }

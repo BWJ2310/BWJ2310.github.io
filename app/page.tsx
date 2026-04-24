@@ -1,30 +1,25 @@
 import Link from "next/link"
 
+import { ContentError } from "@/components/system/content-error"
 import { GlassPanel } from "@/components/system/glass-panel"
+import { ProjectCard } from "@/components/system/project-card"
 import { SectionFrame } from "@/components/system/section-frame"
-
-const featuredProjects = [
-  {
-    title: "CS Pet Tech",
-    description: "A product-facing case study that turns the current Wix project summary into a stronger narrative.",
-  },
-  {
-    title: "Sox",
-    description: "An R&D-driven project framed as an evolving build journal and case study.",
-  },
-  {
-    title: "Robotics",
-    description: "A milestone archive of robotics work, experiments, and selected highlights.",
-  },
-  {
-    title: "Art",
-    description: "Gallery-led visual work that still sits inside the same portfolio system.",
-  },
-]
+import { getFeaturedProjects } from "@/lib/content/loaders"
 
 const practiceAreas = ["Product Design", "Engineering Systems", "Robotics", "Visual Art"]
 
-export default function HomePage() {
+export const revalidate = 600
+
+export default async function HomePage() {
+  let featuredProjects: Awaited<ReturnType<typeof getFeaturedProjects>> = []
+  let contentError: unknown
+
+  try {
+    featuredProjects = await getFeaturedProjects()
+  } catch (error) {
+    contentError = error
+  }
+
   return (
     <>
       <SectionFrame className="pt-8">
@@ -83,13 +78,19 @@ export default function HomePage() {
           </p>
         </div>
         <div className="mt-8 grid gap-3 md:grid-cols-2">
-          {featuredProjects.map((project) => (
-            <GlassPanel key={project.title} className="min-h-52">
-              <p className="text-[10px] uppercase tracking-[0.3em] text-[color:var(--accent)]">Project</p>
-              <h3 className="mt-4 text-2xl uppercase tracking-[-0.04em]">{project.title}</h3>
-              <p className="mt-4 max-w-md text-sm leading-7 text-white/70">{project.description}</p>
-            </GlassPanel>
-          ))}
+          {contentError ? <ContentError error={contentError} title="Featured projects could not load" /> : null}
+          {!contentError && featuredProjects.length === 0 ? <ContentError title="No featured projects found" /> : null}
+          {!contentError
+            ? featuredProjects.map((project) => (
+                <ProjectCard
+                  key={project.slug}
+                  description={project.frontmatter.description}
+                  href={`/projects/${project.slug}`}
+                  meta={`${project.frontmatter.year} / ${project.frontmatter.role}`}
+                  title={project.frontmatter.title}
+                />
+              ))
+            : null}
         </div>
       </SectionFrame>
 

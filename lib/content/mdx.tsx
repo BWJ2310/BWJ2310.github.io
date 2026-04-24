@@ -1,6 +1,6 @@
 import { compileMDX } from "next-mdx-remote/rsc"
 
-import { mdxComponents } from "@/components/mdx"
+import { createMdxComponents } from "@/components/mdx"
 
 const DISALLOWED_REMOTE_PATTERNS = [/^\s*import\s/m, /^\s*export\s/m]
 
@@ -12,12 +12,19 @@ export function assertAllowedRemoteMdx(source: string) {
   }
 }
 
-export async function renderRemoteMdx<TFrontmatter extends Record<string, unknown>>(source: string) {
+type RenderRemoteMdxOptions = {
+  resolveAsset?: (src: string) => string
+}
+
+export async function renderRemoteMdx<TFrontmatter extends Record<string, unknown>>(
+  source: string,
+  options: RenderRemoteMdxOptions = {},
+) {
   assertAllowedRemoteMdx(source)
 
   return compileMDX<TFrontmatter>({
     source,
-    components: mdxComponents,
+    components: createMdxComponents(options.resolveAsset),
     options: {
       parseFrontmatter: true,
     },

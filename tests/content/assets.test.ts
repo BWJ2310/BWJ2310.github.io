@@ -16,4 +16,28 @@ describe("resolveContentAsset", () => {
       "https://raw.githubusercontent.com/jun1216wei/BWJ2310-portfolio-content/main/projects/cs-pet-tech/cover.png",
     )
   })
+
+  it("preserves nested and absolute asset paths", () => {
+    expect(
+      resolveContentAsset({
+        owner: "jun1216wei",
+        repo: "BWJ2310-portfolio-content",
+        ref: "main",
+        contentDir: "projects/cs-pet-tech",
+        assetPath: "screens/cover.png",
+      }),
+    ).toBe(
+      "https://raw.githubusercontent.com/jun1216wei/BWJ2310-portfolio-content/main/projects/cs-pet-tech/screens/cover.png",
+    )
+
+    expect(
+      resolveContentAsset({
+        owner: "jun1216wei",
+        repo: "BWJ2310-portfolio-content",
+        ref: "main",
+        contentDir: "projects/cs-pet-tech",
+        assetPath: "https://example.com/cover.png",
+      }),
+    ).toBe("https://example.com/cover.png")
+  })
 })

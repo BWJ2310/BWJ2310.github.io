@@ -11,15 +11,19 @@ const envSchema = z.object({
 export function getContentConfig(
   input: Partial<Record<string, string | undefined>> = process.env,
 ): ContentConfig {
-  const parsed = envSchema.parse({
+  const parsed = envSchema.safeParse({
     CONTENT_REPO_OWNER: input.CONTENT_REPO_OWNER,
     CONTENT_REPO_NAME: input.CONTENT_REPO_NAME,
     CONTENT_REPO_REF: input.CONTENT_REPO_REF ?? "main",
   })
 
+  if (!parsed.success) {
+    throw new Error("Missing content repository config. Set CONTENT_REPO_OWNER and CONTENT_REPO_NAME.")
+  }
+
   return {
-    owner: parsed.CONTENT_REPO_OWNER,
-    repo: parsed.CONTENT_REPO_NAME,
-    ref: parsed.CONTENT_REPO_REF,
+    owner: parsed.data.CONTENT_REPO_OWNER,
+    repo: parsed.data.CONTENT_REPO_NAME,
+    ref: parsed.data.CONTENT_REPO_REF,
   }
 }

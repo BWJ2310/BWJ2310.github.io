@@ -48,6 +48,24 @@ export async function getProjectSlugs() {
     .map((entry) => entry.path!.split("/")[1])
 }
 
+export async function getProjectArchive() {
+  const slugs = await getProjectSlugs()
+  const projects = await Promise.all(slugs.map((slug) => getProjectOverview(slug)))
+
+  return projects.sort((a, b) => {
+    if (a.frontmatter.featured !== b.frontmatter.featured) {
+      return a.frontmatter.featured ? -1 : 1
+    }
+
+    return a.frontmatter.title.localeCompare(b.frontmatter.title)
+  })
+}
+
+export async function getFeaturedProjects() {
+  const projects = await getProjectArchive()
+  return projects.filter((project) => project.frontmatter.featured)
+}
+
 export async function getBlogSlugs() {
   const tree = await fetchGitHubTree()
 
@@ -56,22 +74,31 @@ export async function getBlogSlugs() {
     .map((entry) => entry.path!.split("/")[1])
 }
 
+export async function getBlogArchive() {
+  const slugs = await getBlogSlugs()
+  const posts = await Promise.all(slugs.map((slug) => getBlogPost(slug)))
+
+  return posts.sort((a, b) => b.frontmatter.date.localeCompare(a.frontmatter.date))
+}
+
 export async function getProjectOverview(slug: string) {
   const source = await fetchGitHubText(`projects/${slug}/index.mdx`)
   const { data, content } = matter(source)
   const config = getContentConfig()
+  const contentDir = `projects/${slug}`
   const parsed = projectSchema.parse(data)
 
   return {
     slug,
     body: content,
+    contentDir,
     frontmatter: {
       ...parsed,
       cover: resolveContentAsset({
         owner: config.owner,
         repo: config.repo,
         ref: config.ref,
-        contentDir: `projects/${slug}`,
+        contentDir,
         assetPath: parsed.cover,
       }),
     },
@@ -113,7 +140,14 @@ export async function getProjectChildren(slug: string) {
     }),
   )
 
-  return validateProjectChildren(
+  const parsedInvalid = candidates
+    .filter((candidate) => candidate.invalid)
+    .map((candidate) => ({
+      slug: candidate.slug,
+      frontmatter: candidate.frontmatter,
+    }))
+
+  const validated = validateProjectChildren(
     candidates
       .filter((candidate) => !candidate.invalid)
       .map((candidate) => ({
@@ -121,24 +155,44 @@ export async function getProjectChildren(slug: string) {
         frontmatter: candidate.frontmatter,
       })),
   )
+
+  return {
+    valid: validated.valid,
+    invalid: [...parsedInvalid, ...validated.invalid],
+  }
+}
+
+export async function getProjectChildPage(slug: string, page: string) {
+  const source = await fetchGitHubText(`projects/${slug}/${page}.mdx`)
+  const { data, content } = matter(source)
+  const parsed = projectChildSchema.parse(data)
+
+  return {
+    slug: page,
+    body: content,
+    contentDir: `projects/${slug}`,
+    frontmatter: parsed,
+  }
 }
 
 export async function getBlogPost(slug: string) {
   const source = await fetchGitHubText(`blogs/${slug}/index.mdx`)
   const { data, content } = matter(source)
   const config = getContentConfig()
+  const contentDir = `blogs/${slug}`
   const parsed = blogSchema.parse(data)
 
   return {
     slug,
     body: content,
+    contentDir,
     frontmatter: {
       ...parsed,
       image: resolveContentAsset({
         owner: config.owner,
         repo: config.repo,
         ref: config.ref,
-        contentDir: `blogs/${slug}`,
+        contentDir,
         assetPath: parsed.image,
       }),
     },

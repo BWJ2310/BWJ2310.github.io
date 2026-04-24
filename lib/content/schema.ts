@@ -25,7 +25,7 @@ export const projectSchema = z.object({
 
 export const projectChildSchema = z.object({
   title: z.string().min(1),
-  order: z.number().int().nonnegative(),
+  order: z.number().int().positive(),
   navTitle: z.string().optional(),
   description: z.string().optional(),
   template: z.string().optional(),

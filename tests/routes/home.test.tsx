@@ -3,8 +3,8 @@ import { describe, expect, it } from "vitest"
 import HomePage from "@/app/page"
 
 describe("HomePage", () => {
-  it("renders the approved homepage sections", () => {
-    render(<HomePage />)
+  it("renders the approved homepage sections", async () => {
+    render(await HomePage())
 
     expect(
       screen.getByRole("heading", {

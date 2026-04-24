@@ -1,31 +1,21 @@
+import { ContentError } from "@/components/system/content-error"
 import { PageHeader } from "@/components/system/page-header"
 import { ProjectCard } from "@/components/system/project-card"
 import { SectionFrame } from "@/components/system/section-frame"
+import { getProjectArchive } from "@/lib/content/loaders"
 
-const projectArchive = [
-  {
-    title: "CS Pet Tech",
-    slug: "cs-pet-tech",
-    description: "A stronger product case study built from the current Wix project content.",
-  },
-  {
-    title: "Sox",
-    slug: "sox",
-    description: "An evolving journal-style project with deeper process pages.",
-  },
-  {
-    title: "Robotics",
-    slug: "robotics",
-    description: "A curated archive of robotics work, milestones, and experiments.",
-  },
-  {
-    title: "Art",
-    slug: "art",
-    description: "Gallery-led visual work kept inside the same portfolio system.",
-  },
-]
+export const revalidate = 600
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  let projects: Awaited<ReturnType<typeof getProjectArchive>> = []
+  let contentError: unknown
+
+  try {
+    projects = await getProjectArchive()
+  } catch (error) {
+    contentError = error
+  }
+
   return (
     <SectionFrame>
       <PageHeader
@@ -33,16 +23,21 @@ export default function ProjectsPage() {
         title="Projects"
         description="Case studies, experiments, robotics work, and visual projects."
       />
-      <div className="mt-8 grid gap-4 md:grid-cols-2">
-        {projectArchive.map((project) => (
-          <ProjectCard
-            key={project.slug}
-            description={project.description}
-            href={`/projects/${project.slug}`}
-            title={project.title}
-          />
-        ))}
-      </div>
+      {contentError ? <ContentError error={contentError} title="Project archive could not load" /> : null}
+      {!contentError && projects.length === 0 ? <ContentError title="No projects found" /> : null}
+      {!contentError && projects.length > 0 ? (
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          {projects.map((project) => (
+            <ProjectCard
+              key={project.slug}
+              description={project.frontmatter.description}
+              href={`/projects/${project.slug}`}
+              meta={`${project.frontmatter.year} / ${project.frontmatter.status}`}
+              title={project.frontmatter.title}
+            />
+          ))}
+        </div>
+      ) : null}
     </SectionFrame>
   )
 }
