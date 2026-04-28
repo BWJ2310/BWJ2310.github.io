@@ -157,7 +157,6 @@ export default async function HomePage() {
                 unoptimized
                 width={288}
               />
-              <span className="absolute right-3 bottom-3 size-4 rounded-full border-2 border-white bg-green-500" />
             </div>
           </div>
           <div className="flex flex-col gap-3 text-center sm:text-left">
@@ -326,7 +325,7 @@ export default async function HomePage() {
             <ArrowRight />
           </Link>
         </div>
-        <div className="grid grid-cols-1 border-t border-border md:grid-cols-2">
+        <div className="grid grid-cols-1 border-t border-b border-border md:grid-cols-2">
           {contentError ? (
             <div className="p-4 md:col-span-2">
               <ContentError
@@ -342,23 +341,23 @@ export default async function HomePage() {
           ) : null}
           {!contentError
             ? featuredProjects.map((project, index) => (
-                <div
-                  key={project.slug}
-                  className={cn(
-                    "p-3.5 sm:p-6",
-                    index % 2 === 1 && "md:border-l md:border-border"
-                  )}
-                >
-                  <ProjectCard
-                    description={project.frontmatter.description}
-                    href={`/projects/${project.slug}`}
-                    image={project.frontmatter.cover}
-                    index={index + 1}
-                    meta={`${project.frontmatter.year} / ${project.frontmatter.role}`}
-                    title={project.frontmatter.title}
-                  />
-                </div>
-              ))
+              <div
+                key={project.slug}
+                className={cn(
+                  "p-3.5 sm:p-6",
+                  index % 2 === 1 && "md:border-l md:border-border"
+                )}
+              >
+                <ProjectCard
+                  description={project.frontmatter.description}
+                  href={`/projects/${project.slug}`}
+                  image={project.frontmatter.cover}
+                  index={index + 1}
+                  meta={`${project.frontmatter.year} / ${project.frontmatter.role}`}
+                  title={project.frontmatter.title}
+                />
+              </div>
+            ))
             : null}
         </div>
       </SectionFrame>
