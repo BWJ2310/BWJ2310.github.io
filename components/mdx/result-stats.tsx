@@ -4,11 +4,12 @@ type ResultStatsProps = {
 
 export function ResultStats({ items }: ResultStatsProps) {
   return (
-    <div className="grid gap-3 md:grid-cols-3">
-      {items.map((item) => (
-        <div key={item.label} className="border border-[color:var(--border)] bg-white/60 p-6">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-[color:var(--muted-foreground)]">{item.label}</p>
-          <p className="mt-3 text-3xl uppercase tracking-[-0.03em]">{item.value}</p>
+    <div className="grid gap-px overflow-hidden border border-border bg-border md:grid-cols-3">
+      {items.map((item, index) => (
+        <div key={item.label} className="bg-card p-4">
+          <span className="font-heading text-xs text-muted-foreground">{String(index + 1).padStart(2, "0")}</span>
+          <p className="text-xs text-muted-foreground">{item.label}</p>
+          <p className="mt-2 font-heading text-2xl font-normal leading-tight text-primary">{item.value}</p>
         </div>
       ))}
     </div>

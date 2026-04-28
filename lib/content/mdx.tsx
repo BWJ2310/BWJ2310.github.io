@@ -1,30 +1,32 @@
 import { compileMDX } from "next-mdx-remote/rsc"
 
 import { createMdxComponents } from "@/components/mdx"
+import type { ImageMetadata } from "@/lib/content/image-metadata"
 
-const DISALLOWED_REMOTE_PATTERNS = [/^\s*import\s/m, /^\s*export\s/m]
+const DISALLOWED_MDX_PATTERNS = [/^\s*import\s/m, /^\s*export\s/m]
 
-export function assertAllowedRemoteMdx(source: string) {
-  for (const pattern of DISALLOWED_REMOTE_PATTERNS) {
+export function assertAllowedMdx(source: string) {
+  for (const pattern of DISALLOWED_MDX_PATTERNS) {
     if (pattern.test(source)) {
-      throw new Error("Remote MDX contains disallowed module syntax")
+      throw new Error("MDX contains disallowed module syntax")
     }
   }
 }
 
-type RenderRemoteMdxOptions = {
+type RenderMdxOptions = {
   resolveAsset?: (src: string) => string
+  resolveImageMetadata?: (src: string) => ImageMetadata | undefined
 }
 
-export async function renderRemoteMdx<TFrontmatter extends Record<string, unknown>>(
+export async function renderMdx<TFrontmatter extends Record<string, unknown>>(
   source: string,
-  options: RenderRemoteMdxOptions = {},
+  options: RenderMdxOptions = {},
 ) {
-  assertAllowedRemoteMdx(source)
+  assertAllowedMdx(source)
 
   return compileMDX<TFrontmatter>({
     source,
-    components: createMdxComponents(options.resolveAsset),
+    components: createMdxComponents(options.resolveAsset, options.resolveImageMetadata),
     options: {
       parseFrontmatter: true,
     },

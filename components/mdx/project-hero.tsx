@@ -1,3 +1,6 @@
+import { Badge } from "@/components/ui/badge"
+import { FolderKanban } from "lucide-react"
+
 type ProjectHeroProps = {
   title: string
   summary: string
@@ -5,10 +8,15 @@ type ProjectHeroProps = {
 
 export function ProjectHero({ title, summary }: ProjectHeroProps) {
   return (
-    <div className="border border-[color:var(--border)] bg-[color:var(--card)] p-8 text-[color:var(--card-foreground)]">
-      <p className="text-[10px] uppercase tracking-[0.3em] text-[color:var(--accent)]">Project</p>
-      <h1 className="mt-4 text-4xl leading-none uppercase tracking-[-0.04em]">{title}</h1>
-      <p className="mt-4 max-w-2xl text-sm leading-7 text-white/72">{summary}</p>
-    </div>
+    <section className="border-y border-border py-8">
+      <div className="flex flex-col gap-4">
+        <Badge className="w-fit" variant="outline">
+          <FolderKanban className="size-3" aria-hidden="true" />
+          Project file
+        </Badge>
+        <h2 className="font-heading text-3xl font-normal leading-tight tracking-normal text-primary">{title}</h2>
+        <p className="max-w-2xl text-sm/7 text-muted-foreground">{summary}</p>
+      </div>
+    </section>
   )
 }

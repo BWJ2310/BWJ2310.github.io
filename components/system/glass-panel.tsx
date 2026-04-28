@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from "react"
 
+import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 
 type GlassPanelProps = PropsWithChildren<{
@@ -8,13 +9,13 @@ type GlassPanelProps = PropsWithChildren<{
 
 export function GlassPanel({ children, className }: GlassPanelProps) {
   return (
-    <div
+    <Card
       className={cn(
-        "border border-[color:var(--border)] bg-[color:rgba(18,18,18,0.92)] p-8 text-[color:var(--card-foreground)] shadow-[0_2px_3px_-1px_rgba(0,0,0,0.1)] backdrop-blur-sm",
+        "border border-border bg-card p-6 text-card-foreground shadow-none md:p-8",
         className,
       )}
     >
       {children}
-    </div>
+    </Card>
   )
 }

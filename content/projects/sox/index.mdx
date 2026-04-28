@@ -1,0 +1,79 @@
+---
+title: "Sox"
+description: "A long-running personal robotics project inspired by the Lightyear character and focused on voice, personality, and motion."
+status: "Completed"
+year: "2022-2024"
+role: "Builder"
+team: "Personal Project"
+tools: ["Blender", "CAD", "Coqui TTS", "Mycroft", "BotPress", "GPT API"]
+cover: "./images/02-sox-logo.jpg"
+featured: true
+bodyWidth: "full"
+---
+
+<ProjectSection
+  eyebrow="Sox"
+  title='A robot cat contains voice assistant and "cat -like" motion to reproduce the animated character "Sox" from Lightyear movie'
+  summary="The longest and biggest personal project I worked on from June 2022 through 2024."
+>
+  <ProjectSectionCopy>
+    Utilized Coqui TTS for generating customized voice synthesis, MyCroft for
+    customized voice assistance, and BotPress to filter commands or normal chats
+    for switching to GPT API to produce personality. Also includes facial
+    recognition and distance measuring for better motion performance. The
+    project ran from June 2022 through 2024.
+  </ProjectSectionCopy>
+  <ProjectSectionMedia>
+    <MediaGrid>
+      <WideImage
+        src="./images/01-hero.jpg"
+        alt="Sox hero image"
+        width={1280}
+        height={720}
+        tone="feature"
+      />
+    </MediaGrid>
+  </ProjectSectionMedia>
+</ProjectSection>
+
+<ProjectSection
+  eyebrow="Development record"
+  title="Development record"
+  summary="Development record through 2024"
+  reverse
+>
+  <ProjectSectionCopy>
+    Still need to clean up the CAD and put them into Isaac Gym for motion training, and figure out how to connect Mycroft, BotPress, ChatGPT, together to read realtime data such as weather, and be able to chat like a normal person
+
+    Considering adding the mouse as an accessory the cat can play with, could be trained in Isaac Gym for better "Cat-Like" motion simulation
+
+  </ProjectSectionCopy>
+  <ProjectSectionMedia>
+    <MediaGrid>
+      <WideImage src="./images/03-sculpture.png" alt="Sculpture.png" caption="Digital Sculpture" width={1929} height={1039} tone="feature" />
+      <WideImage src="./images/04-cad.jpg" alt="CAD.jpg" caption="CAD for most parts" width={1420} height={793} />
+      <WideImage src="./images/05-head-close-shot.png" alt="head-close-shot.png" caption="Eye & Neck motion" width={1420} height={788} />
+      <WideImage src="./images/06-finance.png" alt="fiannce.png" caption="Financial Recods" width={1920} height={969} tone="feature" />
+      <WideImage src="./images/07-voice.png" alt="voice.png" caption="Voice Synthesis / Customized Wake Word Model" width={1920} height={1444} />
+      <WideImage src="./images/08-server.png" alt="server.png" caption="Local Server" width={800} height={480} />
+      <WideImage src="./images/09-facial.png" alt="facial.png" caption="Facial recognition" width={3092} height={2767} />
+      <WideImage src="./images/10-angle.jpg" alt="angle.jpg" caption="angle.jpg" width={1024} height={1024} />
+    </MediaGrid>
+  </ProjectSectionMedia>
+</ProjectSection>
+
+I did digital sculpture in Blender before I start CADing the parts, this's for a better acknowledgement of the dimensions and concepts
+
+Finished CAD for most part of the body and head, still need to imporve mouth-draw motion. the image shown is from early stage of the project
+
+The Eye contains 5 servos to allow it perform Blinking, both vertical and horizontal rotaions. Two cameras will be mounted in the pupil for distance measure and facial recognition.
+
+List of components and parts need to purchase and price, give me a clear image what part of the robot is missing. The physical part of the robot costs around $550.
+
+Collected voice data from the movie and use it to train a customized voice model with [Coqui TTS](https://github.com/coqui-ai/TTS) to produce desired voice like the movie
+
+Collected samples and trained a customized wake word to wake up the voice assistance with "Hey Sox" in Google Colab
+
+Set up a server with GPU power to receive video streaming over the internet from the robot to perform distance measuring and facial recognition since raspberry pi doesn't have enough compute power.
+
+Finished Facial recognition codes, now the robot could stream video to GPU server and tell if the person in the framed is in the data base.

@@ -1,6 +1,6 @@
 # BWJ2310 Portfolio
 
-Next.js + shadcn portfolio shell for a project-first personal site.
+Next.js portfolio shell for a project-first personal site.
 
 ## Runtime
 
@@ -17,30 +17,29 @@ bun run lint
 bun run build
 ```
 
+## GitHub Pages
+
+The app is configured for a static `next build`. The generated site is written
+to `out/` and includes `.nojekyll` so GitHub Pages serves `_next` assets.
+
+To use GitHub's built-in Pages publisher without adding a deployment workflow,
+set Pages to **Deploy from a branch** and choose a branch/folder that contains
+the generated static files. GitHub's branch publisher deploys files already in
+the selected source; it does not run the Next.js build for you.
+
 ## Content
 
-The app reads portfolio content from a separate public GitHub repository.
-
-Required Vercel environment variables:
-
-```bash
-CONTENT_REPO_OWNER=BWJ2310
-CONTENT_REPO_NAME=BWJ2310-portfolio-content
-CONTENT_REPO_REF=main
-```
+The app reads project content directly from this repository.
 
 Expected content structure:
 
 ```text
-blogs/
-  blog-name/
-    index.mdx
-    image.png
-projects/
-  project-name/
-    index.mdx
-    story.mdx
-    process.mdx
+content/
+  projects/
+    project-name/
+      index.mdx
+      images/
+        image.png
 ```
 
-Project child pages must include explicit `order` frontmatter. The project subnav is generated from those child pages.
+Each project detail page is sourced only from `content/projects/<slug>/index.mdx`. Sibling MDX files are ignored by the app and do not generate routes or subnav items.

@@ -1,4 +1,6 @@
 import { GlassPanel } from "./glass-panel"
+import { Badge } from "@/components/ui/badge"
+import { TriangleAlert } from "lucide-react"
 
 type ContentErrorProps = {
   title?: string
@@ -6,13 +8,16 @@ type ContentErrorProps = {
 }
 
 export function ContentError({ error, title = "Content unavailable" }: ContentErrorProps) {
-  const message = error instanceof Error ? error.message : "Remote content could not be loaded."
+  const message = error instanceof Error ? error.message : "Content could not be loaded."
 
   return (
     <GlassPanel className="mt-8">
-      <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[color:var(--accent)]">Content Error</p>
-      <h2 className="mt-4 text-2xl uppercase tracking-[-0.04em]">{title}</h2>
-      <p className="mt-4 max-w-2xl text-sm leading-7 text-white/72">{message}</p>
+      <Badge variant="outline">
+        <TriangleAlert className="size-3" aria-hidden="true" />
+        Content Error
+      </Badge>
+      <h2 className="mt-4 font-heading text-2xl">{title}</h2>
+      <p className="mt-4 max-w-2xl text-sm/7 text-muted-foreground">{message}</p>
     </GlassPanel>
   )
 }

@@ -3,41 +3,37 @@ import { describe, expect, it } from "vitest"
 import { resolveContentAsset } from "@/lib/content/assets"
 
 describe("resolveContentAsset", () => {
-  it("resolves a relative asset path to raw GitHub", () => {
+  it("resolves a relative asset path through the local content asset route", () => {
     expect(
       resolveContentAsset({
-        owner: "BWJ2310",
-        repo: "BWJ2310-portfolio-content",
-        ref: "main",
-        contentDir: "projects/cs-pet-tech",
-        assetPath: "./cover.png",
+        contentDir: "cs-pet-tech",
+        assetPath: "./images/01-inside.png",
       }),
-    ).toBe(
-      "https://raw.githubusercontent.com/BWJ2310/BWJ2310-portfolio-content/main/projects/cs-pet-tech/cover.png",
-    )
+    ).toBe("/api/content-assets/cs-pet-tech/images/01-inside.png")
   })
 
   it("preserves nested and absolute asset paths", () => {
     expect(
       resolveContentAsset({
-        owner: "BWJ2310",
-        repo: "BWJ2310-portfolio-content",
-        ref: "main",
-        contentDir: "projects/cs-pet-tech",
+        contentDir: "cs-pet-tech",
         assetPath: "screens/cover.png",
       }),
-    ).toBe(
-      "https://raw.githubusercontent.com/BWJ2310/BWJ2310-portfolio-content/main/projects/cs-pet-tech/screens/cover.png",
-    )
+    ).toBe("/api/content-assets/cs-pet-tech/screens/cover.png")
 
     expect(
       resolveContentAsset({
-        owner: "BWJ2310",
-        repo: "BWJ2310-portfolio-content",
-        ref: "main",
-        contentDir: "projects/cs-pet-tech",
+        contentDir: "cs-pet-tech",
         assetPath: "https://example.com/cover.png",
       }),
     ).toBe("https://example.com/cover.png")
+  })
+
+  it("rejects asset paths that escape the project directory", () => {
+    expect(() =>
+      resolveContentAsset({
+        contentDir: "cs-pet-tech",
+        assetPath: "../robotics/images/robot.jpg",
+      }),
+    ).toThrow(/unsafe/i)
   })
 })

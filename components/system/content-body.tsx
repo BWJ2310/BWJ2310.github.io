@@ -30,17 +30,19 @@ export function ContentBody({
   return (
     <article
       className={cn(
-        "mt-8 space-y-6 text-[color:var(--foreground)]/78",
-        "[&>blockquote]:border-l-2 [&>blockquote]:border-[color:var(--accent)] [&>blockquote]:pl-5 [&>blockquote]:text-[color:var(--foreground)]",
-        "[&>h2]:pt-6 [&>h2]:text-3xl [&>h2]:leading-none [&>h2]:font-medium [&>h2]:tracking-[-0.04em] [&>h2]:uppercase",
-        "[&>h3]:pt-4 [&>h3]:text-xl [&>h3]:font-medium [&>h3]:tracking-[-0.03em]",
-        "[&>ol]:list-decimal [&>ol]:space-y-2 [&>ol]:pl-6",
-        "[&>p>a]:text-[color:var(--foreground)] [&>p>a]:underline [&>p>a]:decoration-[color:var(--accent)]",
-        "[&>ul]:list-disc [&>ul]:space-y-2 [&>ul]:pl-6",
+        "mt-12 space-y-6 text-foreground/80",
+        "[&>blockquote]:rounded-lg [&>blockquote]:border [&>blockquote]:border-border [&>blockquote]:bg-muted/50 [&>blockquote]:p-5 [&>blockquote]:text-foreground",
+        "[&>h2]:max-w-4xl [&>h2]:pt-6 [&>h2]:font-heading [&>h2]:text-3xl [&>h2]:leading-tight [&>h2]:font-normal [&>h2]:tracking-normal",
+        "[&>h3]:max-w-4xl [&>h3]:pt-4 [&>h3]:font-heading [&>h3]:text-xl [&>h3]:font-medium [&>h3]:tracking-normal",
+        "[&>ol]:max-w-3xl [&>ol]:list-decimal [&>ol]:space-y-2 [&>ol]:pl-6",
+        "[&>p]:max-w-3xl",
+        "[&>p>a]:text-foreground [&>p>a]:underline [&>p>a]:decoration-primary",
+        "[&>ul]:max-w-3xl [&>ul]:list-disc [&>ul]:space-y-2 [&>ul]:pl-6",
         widthClasses[bodyWidth] ?? widthClasses.default,
         fontClasses[fontMode] ?? fontClasses.default,
         className,
       )}
+      data-project-detail-body
     >
       {children}
     </article>
