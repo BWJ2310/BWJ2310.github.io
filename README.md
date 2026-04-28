@@ -19,14 +19,10 @@ bun run build
 
 ## GitHub Pages
 
-The app is configured for a static `next build`. The generated site is written
-to `docs/` and includes `.nojekyll` so GitHub Pages serves `_next` assets.
-`bun run build` refreshes `docs/` from Next's generated `out/` directory.
-
-To use GitHub's built-in Pages publisher without adding a deployment workflow,
-set Pages to **Deploy from a branch** and choose `main` / `/docs`. GitHub's
-branch publisher deploys files already in the selected source; it does not run
-the Next.js build for you.
+GitHub Pages is published by the workflow in `.github/workflows/pages.yml`.
+The workflow builds the static Next.js export into `out/` and deploys that
+artifact with GitHub's official Pages actions. Set Pages to **GitHub Actions**
+as the publishing source.
 
 ## Content
 

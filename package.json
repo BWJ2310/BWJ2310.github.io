@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/sync-pages-output.mjs",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint .",
     "test": "vitest run",
