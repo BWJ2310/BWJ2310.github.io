@@ -18,10 +18,10 @@ export function SiteHeader() {
       <div className="portfolio-container">
         <div className="flex flex-col gap-3 border-x border-b border-border bg-background px-4 py-3 sm:px-7 md:flex-row md:items-center md:justify-between">
           <Link
-            className="font-heading text-sm font-medium tracking-normal text-primary"
+            className="font-heading text-sm font-bold tracking-normal text-primary"
             href="/"
           >
-            Bruzzz
+            Bruzzz's website
           </Link>
           <nav
             className="flex min-w-0 flex-wrap items-center gap-1 text-xs text-muted-foreground"

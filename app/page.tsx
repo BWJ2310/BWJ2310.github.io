@@ -72,7 +72,7 @@ const socialLinks = [
     href: "https://github.com/BWJ2310",
     icon: GitHubBrandIcon,
   },
-  { label: "X", href: "https://x.com/BWJ2310", icon: XBrandIcon },
+  { label: "X", href: "https://x.com/BruzWJ", icon: XBrandIcon },
   {
     label: "IndieDevs",
     href: "https://www.indiedevs.me/bruzzz",
@@ -123,7 +123,7 @@ export default async function HomePage() {
     <>
       <SectionFrame
         className="max-w-none p-0"
-        paddingClassName="px-4 py-10 sm:px-7 md:pb-16"
+        paddingClassName="py-10 md:pb-16"
       >
         <div className="flex h-36 items-center overflow-x-auto border-b border-border bg-white p-3 [scrollbar-width:none] md:h-52 md:overflow-x-visible md:p-7 lg:h-64 dark:bg-[#0d1117] [&::-webkit-scrollbar]:hidden">
           <Image
@@ -150,7 +150,7 @@ export default async function HomePage() {
             <div className="relative">
               <Image
                 alt="Bruzzz GitHub profile picture"
-                className="size-36 rounded-full border-4 border-white object-cover"
+                className="size-36 rounded-full bg-border border-border/20 backdrop-blur border-4 object-cover"
                 height={288}
                 priority
                 src="https://github.com/BWJ2310.png"
@@ -163,7 +163,7 @@ export default async function HomePage() {
             <h1 className="max-w-xl font-heading text-3xl leading-tight font-normal tracking-normal text-primary md:text-[32px]">
               Bruzzz builds pet-tech systems, robots, and visual worlds.
             </h1>
-            <p className="text-violet-700">
+            <p className="text-neutral-700">
               Creative engineer / product systems / robotics
             </p>
             <div className="flex items-center justify-center gap-2 text-primary sm:justify-start">
@@ -325,7 +325,7 @@ export default async function HomePage() {
             <ArrowRight />
           </Link>
         </div>
-        <div className="grid grid-cols-1 border-t border-b border-border md:grid-cols-2">
+        <div className="grid grid-cols-1 border border-border md:grid-cols-2">
           {contentError ? (
             <div className="p-4 md:col-span-2">
               <ContentError

@@ -101,7 +101,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="about-hero-media relative overflow-hidden border border-border bg-white">
+          <div className="about-hero-media relative overflow-hidden bg-background">
             <Image
               alt="Jun giving a speech"
               className="object-contain object-center"
