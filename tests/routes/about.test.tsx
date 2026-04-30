@@ -16,7 +16,7 @@ describe("AboutPage", () => {
     ).toBeInTheDocument()
     expect(
       screen.getByText(
-        "The world is full of adventures, and I can't wait to explore. My life story has been constructed by utilizing my resources and skills, and I'm confident about what I will accomplish in the near future."
+        "The world is full of adventures, and I can't wait to explore. I have been building my life story with the resources and skills I have, and I'm confident about what I can accomplish next."
       )
     ).toBeInTheDocument()
     expect(
@@ -25,6 +25,52 @@ describe("AboutPage", () => {
       )
     ).toBeInTheDocument()
 
+    expect(screen.getByText("Developer")).toBeInTheDocument()
+    expect(screen.getByText("- TradingGoose, Localhost")).toBeInTheDocument()
+    expect(screen.getByText("November 2025 - present")).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        "Full-stack developer for TradingGoose-Studio and TradingGoose-Market."
+      )
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        "Designed and developed open-source agentic workflows for technical-analysis trading."
+      )
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        "Built a cross-platform financial asset identity normalization system designed to work across platforms."
+      )
+    ).toBeInTheDocument()
+
+    expect(screen.getByText("Product Designer")).toBeInTheDocument()
+    expect(screen.getByText("- AirTurn, Boulder, CO, US")).toBeInTheDocument()
+    expect(screen.getByText("July 2023 - present")).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        "Designed musician control devices and tripod stand products."
+      )
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        "Used Fusion 360 to produce manufacturing-ready 3D file packages and engineering drawings."
+      )
+    ).toBeInTheDocument()
+
+    const tradingGooseHeading = screen.getByRole("heading", {
+      level: 2,
+      name: "Developer",
+    })
+    const airTurnHeading = screen.getByRole("heading", {
+      level: 2,
+      name: "Product Designer",
+    })
+    expect(
+      tradingGooseHeading.compareDocumentPosition(airTurnHeading) &
+        Node.DOCUMENT_POSITION_FOLLOWING
+    ).toBeTruthy()
+
     expect(
       screen.getByText("System and UI/UX design, Product Manager")
     ).toBeInTheDocument()
@@ -32,12 +78,12 @@ describe("AboutPage", () => {
     expect(screen.getByText("January 2021 - August 2021")).toBeInTheDocument()
     expect(
       screen.getByText(
-        "Constructed a workflow based on internet logic for pet groomers to pick working space/time and for customers to make appointments without time/space conflict."
+        "Built a scheduling workflow that lets pet groomers choose working spaces and times while customers book appointments without time or space conflicts."
       )
     ).toBeInTheDocument()
     expect(
       screen.getByText(
-        "The final product met all design objectives and was constructed within a $12000 budget for the business customers."
+        "The final product met all design objectives and was built within a $12,000 budget for business customers."
       )
     ).toBeInTheDocument()
 
@@ -49,6 +95,7 @@ describe("AboutPage", () => {
     expect(
       screen.getByText("- Shenzhen Foreign Language School, Shenzhen, CN")
     ).toBeInTheDocument()
+    expect(screen.getByText("January 2018 - March 2020")).toBeInTheDocument()
 
     expect(
       screen.getByRole("heading", { level: 2, name: "Accomplishment" })
@@ -67,7 +114,7 @@ describe("AboutPage", () => {
       )
     ).toBeInTheDocument()
     expect(
-      screen.getByText("Trying my best to balance study, work, and life.")
+      screen.getByText("Trying my best to balance school, work, and life.")
     ).toBeInTheDocument()
   })
 

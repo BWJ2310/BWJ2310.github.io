@@ -21,7 +21,7 @@ export function SiteHeader() {
             className="font-heading text-sm font-bold tracking-normal text-primary"
             href="/"
           >
-            Bruzzz's website
+            Bruzzz&apos;s website
           </Link>
           <nav
             className="flex min-w-0 flex-wrap items-center gap-1 text-xs text-muted-foreground"

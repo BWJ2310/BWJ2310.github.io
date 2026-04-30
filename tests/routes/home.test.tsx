@@ -1,11 +1,11 @@
-import { render, screen } from "@testing-library/react"
+import { render, screen, within } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
 import HomePage from "@/app/page"
 import { CONTACT_MAILTO } from "@/lib/contact"
 
 describe("HomePage", () => {
   it("renders the approved homepage sections", async () => {
-    render(await HomePage())
+    const { container } = render(await HomePage())
 
     expect(
       screen.getByRole("heading", {
@@ -21,6 +21,38 @@ describe("HomePage", () => {
         name: /regular human being trying to make an interesting story out of life/i,
       })
     ).toBeInTheDocument()
+    expect(
+      screen.getByRole("heading", { name: "Developer" })
+    ).toBeInTheDocument()
+    expect(screen.getByText("TradingGoose")).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        "Built full-stack tools for agentic trading workflows and normalized financial asset identities."
+      )
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole("heading", { name: "Product Designer" })
+    ).toBeInTheDocument()
+    expect(screen.getAllByText("AirTurn").length).toBeGreaterThan(0)
+    expect(
+      screen.getByText(
+        "Designed musician control devices and tripod stand products, from concept renders to manufacturing-ready files."
+      )
+    ).toBeInTheDocument()
+    const experienceSection = container.querySelector("section#experience")
+    expect(experienceSection).not.toBeNull()
+    const experience = within(experienceSection as HTMLElement)
+    expect(experience.queryByText(/2023-present/i)).not.toBeInTheDocument()
+    expect(experience.queryByText(/2025-present/i)).not.toBeInTheDocument()
+    expect(
+      experience.queryByText("Investment Researcher")
+    ).not.toBeInTheDocument()
+    expect(experience.queryByText("Robotics Mentor")).not.toBeInTheDocument()
+    expect(experienceSection?.querySelectorAll("h3")).toHaveLength(3)
+    expect(screen.getByRole("link", { name: /learn more/i })).toHaveAttribute(
+      "href",
+      "/about"
+    )
     expect(screen.getByText("Skills")).toBeInTheDocument()
     expect(screen.getAllByText("Fusion").length).toBeGreaterThan(0)
     expect(screen.getAllByText("Blender").length).toBeGreaterThan(0)
@@ -40,6 +72,41 @@ describe("HomePage", () => {
     ).toBeInTheDocument()
   })
 
+  it("shows the selected homepage projects and links to the full project page", async () => {
+    const { container } = render(await HomePage())
+
+    const workSection = container.querySelector("section#work")
+    expect(workSection).not.toBeNull()
+
+    const work = within(workSection as HTMLElement)
+    expect(
+      work
+        .getAllByRole("heading", { level: 3 })
+        .map((heading) => heading.textContent)
+    ).toEqual([
+      "TradingGoose-Studio",
+      "AirTurn",
+      "CS Pet Tech",
+      "Robotics",
+    ])
+    expect(work.queryByText("TradingGoose-Market")).not.toBeInTheDocument()
+    expect(work.queryByText("Sox")).not.toBeInTheDocument()
+    expect(work.queryByText("Art")).not.toBeInTheDocument()
+    expect(work.getAllByText("Open project")).toHaveLength(4)
+    expect(
+      work.getByRole("link", { name: /airturn[\s\S]*open project/i })
+    ).toHaveAttribute("href", "/projects/airturn")
+    const viewAllProjectsLink = work.getByRole("link", {
+      name: /view all projects/i,
+    })
+    expect(viewAllProjectsLink).toHaveAttribute("href", "/projects")
+    expect(
+      viewAllProjectsLink.compareDocumentPosition(
+        work.getByRole("heading", { name: "TradingGoose-Studio" })
+      ) & Node.DOCUMENT_POSITION_FOLLOWING
+    ).toBeTruthy()
+  })
+
   it("places skills and experience before featured work", async () => {
     render(await HomePage())
 
@@ -48,6 +115,12 @@ describe("HomePage", () => {
     })
     const skillsLabel = screen.getByText("Skills")
     const experienceLabel = screen.getByText("Experience")
+    const tradingGooseHeading = screen.getByRole("heading", {
+      name: "Developer",
+    })
+    const airTurnHeading = screen.getByRole("heading", {
+      name: "Product Designer",
+    })
     const workHeading = screen.getByRole("heading", {
       name: /projects with a point of view/i,
     })
@@ -66,6 +139,10 @@ describe("HomePage", () => {
     ).toBeTruthy()
     expect(
       experienceLabel.compareDocumentPosition(workHeading) &
+        Node.DOCUMENT_POSITION_FOLLOWING
+    ).toBeTruthy()
+    expect(
+      tradingGooseHeading.compareDocumentPosition(airTurnHeading) &
         Node.DOCUMENT_POSITION_FOLLOWING
     ).toBeTruthy()
   })

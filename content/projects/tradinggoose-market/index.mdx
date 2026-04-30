@@ -1,0 +1,119 @@
+---
+title: "TradingGoose-Market"
+description: "A self-hostable market reference-data platform for canonical listing identity, exchange metadata, and provider-specific symbol resolution."
+status: "Active"
+year: "2025-present"
+role: "Full-stack Developer"
+team: "TradingGoose"
+tools: ["Next.js", "Bun", "PostgreSQL", "Drizzle ORM", "Better Auth", "Market Data", "Canonical Identity"]
+cover: "./images/01-canonical-identity-map.svg"
+featured: true
+headerVariant: "immersive"
+bodyWidth: "full"
+---
+
+<ProjectSection
+  eyebrow="TradingGoose-Market"
+  title="Canonical ticker identity across market data providers"
+  summary="Designed a reference-data layer that keeps asset identity stable while clients translate the final ticker format for each market-data provider."
+>
+  <ProjectSectionCopy>
+    Market acts as a self-hostable source of truth for listings, exchanges, markets, currencies, countries, cities, time zones, blockchain networks, and trading hours. TradingGoose-Studio can resolve canonical records from Market, then apply provider-specific symbol rules at the client edge.
+
+    [Read the design article](https://dev.to/bwj2310/tradinggoose-market-canonical-ticker-identity-across-market-data-providers-31g)
+  </ProjectSectionCopy>
+  <ProjectSectionMedia>
+    <div className="space-y-5">
+      <MediaGrid>
+        <WideImage
+          src="./images/02-market-admin-dashboard.webp"
+          alt="TradingGoose-Market admin dashboard and database connectivity view"
+          caption="Market admin dashboard and database connectivity view."
+          width={2200}
+          height={1202}
+          tone="feature"
+        />
+      </MediaGrid>
+      <ResultStats items='[{"label":"Problem","value":"Provider drift"},{"label":"Core model","value":"Stable listing ID"},{"label":"Output","value":"Provider-ready symbols"}]' />
+    </div>
+  </ProjectSectionMedia>
+</ProjectSection>
+
+<ProjectSection
+  eyebrow="Reference Gap"
+  title="Why a self-hosted market layer was needed"
+  summary="Existing reference-data services helped frame the problem, but they did not provide an open, customizable source of truth for TradingGoose."
+  reverse
+>
+  <ProjectSectionCopy>
+    OpenFIGI is useful for identifier mapping but is hosted and rate-limited. FinnWorlds exposes broad market datasets, but it is closed and subscription-based. TradingGoose-Market keeps the identity layer inspectable, editable, and deployable with the rest of the stack.
+  </ProjectSectionCopy>
+  <ProjectSectionMedia>
+    <MediaGrid variant="pair">
+      <WideImage
+        src="./images/05-openfigi-reference.webp"
+        alt="OpenFIGI reference mapping service screenshot"
+        caption="OpenFIGI reference service: useful, hosted, and rate-limited."
+        width={2200}
+        height={1202}
+        fit="contain"
+      />
+      <WideImage
+        src="./images/06-finnworlds-pricing.webp"
+        alt="FinnWorlds market data pricing screenshot"
+        caption="FinnWorlds pricing reference for closed market-data services."
+        width={2200}
+        height={1202}
+        fit="contain"
+      />
+    </MediaGrid>
+  </ProjectSectionMedia>
+</ProjectSection>
+
+<ProjectSection
+  eyebrow="System Boundary"
+  title="Market records what exists; clients render provider symbols"
+  summary="The service avoids locking provider-specific string formatting into the core reference-data platform."
+>
+  <ProjectSectionCopy>
+    A listing keeps its canonical context: base ticker, quote currency, asset class, market, country, city, and related exchange metadata. Each provider can then define rules that score matching contexts and render the final request symbol with templates.
+  </ProjectSectionCopy>
+  <ProjectSectionMedia>
+    <ProcessTimeline steps='[{"title":"Resolve listing context","summary":"Fetch canonical listing metadata from TradingGoose-Market."},{"title":"Match provider rules","summary":"Filter active rules by market, country, city, asset class, currency, or regex."},{"title":"Score precedence","summary":"Rank rules so the most specific provider mapping wins."},{"title":"Render symbol","summary":"Interpolate the winning template into Yahoo, Finnhub, Alpaca, or another provider format."}]' />
+  </ProjectSectionMedia>
+</ProjectSection>
+
+<ProjectSection
+  eyebrow="Coverage"
+  title="Market reference data beyond ticker strings"
+  summary="Once listings, markets, countries, cities, and time zones were connected, the same model could support trading hours, holidays, and early closes."
+>
+  <ProjectSectionCopy>
+    The project expands ticker identity into a broader reference-data platform: listings and exchanges are linked to market-level records, and the admin/API layer can serve the shared context that trading applications need before fetching prices or bars.
+  </ProjectSectionCopy>
+  <ProjectSectionMedia>
+    <div className="space-y-5">
+      <MediaGrid variant="pair">
+        <WideImage
+          src="./images/03-market-listings-table.webp"
+          alt="TradingGoose-Market listings table with stocks across markets"
+          caption="Listings table with stock identity, country, quote currency, market, and active state."
+          width={2200}
+          height={1202}
+          fit="contain"
+        />
+        <WideImage
+          src="./images/04-market-hours-editor.webp"
+          alt="TradingGoose-Market market hours editor with sessions, holidays, and early closes"
+          caption="Market hours editor for sessions, holidays, and early closes."
+          width={2200}
+          height={1202}
+          fit="contain"
+        />
+      </MediaGrid>
+      <ResultStats items='[{"label":"Identity","value":"Canonical listings"},{"label":"Context","value":"Markets + exchanges"},{"label":"Resolution","value":"Provider symbols"}]' />
+      <ProcessTimeline steps='[{"title":"Normalize listing identity","summary":"Store the stable listing record separately from provider-specific ticker formatting."},{"title":"Attach market context","summary":"Connect listings to exchanges, markets, countries, cities, currencies, and time zones."},{"title":"Apply provider rules","summary":"Use matching and precedence rules to choose the right symbol template for each provider."},{"title":"Serve trading apps","summary":"Expose the shared reference data so Studio and other clients can request prices consistently."}]' />
+      <ToolStack tools='["Listings", "Markets", "Exchanges", "Trading Hours", "Provider Rules", "Admin UI", "Public API"]' />
+    </div>
+  </ProjectSectionMedia>
+</ProjectSection>

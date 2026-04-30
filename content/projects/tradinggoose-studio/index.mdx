@@ -1,0 +1,122 @@
+---
+title: "TradingGoose-Studio"
+description: "An open-source agentic workflow platform for technical-analysis trading, charting, monitoring, and automation."
+status: "Active"
+year: "2025-present"
+role: "Full-stack Developer"
+team: "TradingGoose"
+tools: ["Next.js", "Bun", "PostgreSQL", "React Flow", "Lightweight Charts", "Yjs", "Socket.io", "shadcn/ui"]
+cover: "./images/01-studio-workspace-light.webp"
+featured: true
+headerVariant: "immersive"
+bodyWidth: "full"
+---
+
+<ProjectSection
+  eyebrow="TradingGoose-Studio"
+  title="Agentic workflow platform for technical LLM trading"
+  summary="Built full-stack product surfaces for connecting market data, indicators, analysis workflows, and automation in one open-source trading workspace."
+>
+  <ProjectSectionCopy>
+    TradingGoose-Studio combines technical analysis and LLM-assisted workflows for research, charting, monitoring, and trading automation. The interface is designed around dense workspace views rather than a marketing-first app shell.
+  </ProjectSectionCopy>
+  <ProjectSectionMedia>
+    <div className="space-y-5">
+      <MediaGrid>
+        <WideImage
+          src="./images/03-studio-overview-light.webp"
+          alt="TradingGoose-Studio project overview in light mode"
+          caption="Project overview, light mode"
+          width={2200}
+          height={1202}
+          tone="feature"
+        />
+      </MediaGrid>
+      <ResultStats items='[{"label":"Data","value":"Market + broker context"},{"label":"Workflow","value":"Agentic analysis"},{"label":"Workspace","value":"Charts + portfolio"}]' />
+    </div>
+  </ProjectSectionMedia>
+</ProjectSection>
+
+<ProjectSection
+  eyebrow="Copilot Workflow"
+  title="Copy an analytical workflow from a URL"
+  summary="A newer Studio flow uses Copilot to bring an analytical workflow into the workspace, then lets the user tune custom indicators inside the data_chart widget."
+>
+  <ProjectSectionCopy>
+    The demo captures the core loop for builder-facing trading workflows: ask Copilot to reproduce analysis from a URL, inspect the generated workflow, and adjust indicator parameters directly where the chart is running.
+  </ProjectSectionCopy>
+  <ProjectSectionMedia>
+    <MediaGrid>
+      <WideImage
+        src="./images/05-copilot-workflow-demo.mp4"
+        alt="TradingGoose-Studio Copilot workflow and custom indicator video demo"
+        caption="Video demo: Copilot copies an analytical workflow from a URL and connects it to chart analysis."
+        width={960}
+        height={544}
+        mediaType="video"
+        tone="feature"
+      />
+    </MediaGrid>
+  </ProjectSectionMedia>
+</ProjectSection>
+
+<ProjectSection
+  eyebrow="Build Scope"
+  title="Full-stack product system"
+  summary="The implementation spans application shell, database-backed workflows, realtime collaboration, charting, and market-data integration points."
+>
+  <ProjectSectionCopy>
+    The stack includes Next.js on Bun, PostgreSQL with Drizzle, Better Auth, shadcn/ui, Zustand, Socket.io, Yjs, React Flow, Lightweight Charts, PineTS, Trigger.dev, and E2B. The goal is a self-hostable trading workspace that stays useful for both builders and traders.
+  </ProjectSectionCopy>
+  <ProjectSectionMedia>
+    <div className="space-y-5">
+      <ResultStats items='[{"label":"Workspace","value":"Multi-layout dashboard"},{"label":"Analysis","value":"Custom indicators"},{"label":"Automation","value":"Copilot workflows"}]' />
+      <ProcessTimeline steps='[{"title":"Connect data","summary":"Attach market and broker providers so widgets share the same trading context."},{"title":"Build workflow","summary":"Create or copy analytical workflows with Copilot, reusable blocks, and visual inspection."},{"title":"Tune indicator","summary":"Adjust custom indicator parameters directly inside the data_chart widget."},{"title":"Run workspace","summary":"Use charts, portfolio panels, order entry, and workflow outputs together in one dashboard."}]' />
+      <ToolStack tools='["Next.js", "Bun", "PostgreSQL", "Drizzle ORM", "React Flow", "Lightweight Charts", "Yjs", "Socket.io"]' />
+    </div>
+  </ProjectSectionMedia>
+</ProjectSection>
+
+<ProjectSection
+  eyebrow="Data Chart"
+  title="Custom indicators, portfolio panels, and workflow views"
+  summary="The same workspace supports portfolio context, trade-entry panels, custom chart indicators, and visual workflow inspection."
+  reverse
+>
+  <ProjectSectionMedia>
+    <MediaGrid variant="pair">
+      <WideImage
+        src="./images/07-portfolio-data-chart.webp"
+        alt="TradingGoose-Studio dashboard with portfolio performance, data chart, and order panel"
+        caption="Dashboard layout with portfolio performance, chart analysis, watchlist, and order entry."
+        width={2200}
+        height={1202}
+        tone="feature"
+      />
+      <WideImage
+        src="./images/08-custom-indicator-settings.webp"
+        alt="TradingGoose-Studio custom indicator settings inside the data chart widget"
+        caption="Custom indicator settings in the data_chart widget."
+        width={2200}
+        height={1202}
+        tone="feature"
+      />
+      <WideImage
+        src="./images/09-workflow-skill-library.webp"
+        alt="TradingGoose-Studio workflow canvas and skill library panels"
+        caption="Workflow canvas with skill categories and reusable analysis blocks."
+        width={2200}
+        height={1202}
+        tone="feature"
+      />
+      <WideImage
+        src="./images/06-copilot-workflow-preview.webp"
+        alt="TradingGoose-Studio landing preview for risk assessment workflow"
+        caption="Landing preview for risk-assessment workflow positioning."
+        width={960}
+        height={544}
+        tone="feature"
+      />
+    </MediaGrid>
+  </ProjectSectionMedia>
+</ProjectSection>

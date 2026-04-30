@@ -39,6 +39,10 @@ const projectContext: Record<
     track: "Product system",
     icon: Workflow,
   },
+  airturn: {
+    track: "Product design",
+    icon: Hammer,
+  },
   robotics: {
     track: "Robotics timeline",
     icon: CircuitBoard,
@@ -47,12 +51,20 @@ const projectContext: Record<
     track: "Personal machine",
     icon: Bot,
   },
+  "tradinggoose-market": {
+    track: "Market identity",
+    icon: Layers3,
+  },
+  "tradinggoose-studio": {
+    track: "Agentic trading",
+    icon: Workflow,
+  },
 }
 
 const summaryStats = [
   {
     label: "Focus",
-    value: "Product systems, robotics, visual work",
+    value: "Product systems, trading tools, robotics, visual work",
     icon: Layers3,
   },
   {
@@ -75,7 +87,7 @@ export default async function ProjectsPage() {
 
   return (
     <>
-      <SectionFrame>
+      <SectionFrame className="py-10 md:py-16">
         <div className="flex flex-col gap-5">
           <div className="flex flex-wrap items-center gap-2">
             <Badge className="w-fit" variant="outline">
@@ -93,8 +105,8 @@ export default async function ProjectsPage() {
                 Project Index
               </h1>
               <p className="mt-3 max-w-3xl text-sm/7 text-muted-foreground md:text-base/8">
-                A compact index for CS Pet Tech, Robotics, Sox, and Art, grouped
-                by project signal and readable case-study context.
+                A compact index for product design, trading tools, robotics,
+                visual work, and readable case-study context.
               </p>
             </div>
             <div className="grid gap-px overflow-hidden rounded-lg border border-border bg-border text-xs">
@@ -124,7 +136,7 @@ export default async function ProjectsPage() {
 
       <PortfolioDivider />
 
-      <SectionFrame className="max-w-none p-0">
+      <SectionFrame className="py-10 md:py-16 max-w-none p-0">
         {contentError ? (
           <div className="mx-auto max-w-3xl px-4 py-10 sm:px-7">
             <ContentError

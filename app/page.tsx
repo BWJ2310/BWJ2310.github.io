@@ -87,12 +87,30 @@ const pacmanContributionGraphDark =
 const githubActivityGraph =
   "https://github-readme-activity-graph.vercel.app/graph?username=bwj2310&radius=16&theme=dracula&area=true&order=5&bg_color=00000000&color=888&title_color=888&line=888&point=888&area_color=888&hide_border=true&hide_title=true"
 
-const experience = [
+type ExperienceItem = {
+  role: string
+  place: string
+  detail: string
+}
+
+const experience: ExperienceItem[] = [
+  {
+    role: "Developer",
+    place: "TradingGoose",
+    detail:
+      "Built full-stack tools for agentic trading workflows and normalized financial asset identities.",
+  },
+  {
+    role: "Product Designer",
+    place: "AirTurn",
+    detail:
+      "Designed musician control devices and tripod stand products, from concept renders to manufacturing-ready files.",
+  },
   {
     role: "Product Manager / UI/UX Designer",
     place: "CS Pet Tech",
     detail:
-      "Designed workflow, mini-app direction, industrial concepts, and business framing.",
+      "Designed workflows, mini-app direction, industrial concepts, and business framing.",
   },
   {
     role: "Investment Researcher",
@@ -107,6 +125,19 @@ const experience = [
   },
 ]
 
+const homepageExperience = experience.slice(0, 3)
+
+const homepageProjectSlugs = [
+  "tradinggoose-studio",
+  "airturn",
+  "cs-pet-tech",
+  "robotics",
+]
+
+const homepageProjectTitles: Record<string, string> = {
+  airturn: "AirTurn",
+}
+
 export default async function HomePage() {
   let featuredProjects: Awaited<ReturnType<typeof getFeaturedProjects>> = []
   let contentError: unknown
@@ -118,12 +149,17 @@ export default async function HomePage() {
   }
 
   const homeAsset = (assetPath: string) => resolveSiteAsset("home", assetPath)
+  const homepageProjects = homepageProjectSlugs.flatMap((slug) => {
+    const project = featuredProjects.find((item) => item.slug === slug)
+
+    return project ? [project] : []
+  })
 
   return (
     <>
       <SectionFrame
         className="max-w-none p-0"
-        paddingClassName="py-10 md:pb-16"
+        paddingClassName="py-10 md:py-16"
       >
         <div className="flex h-36 items-center overflow-x-auto border-b border-border bg-white p-3 [scrollbar-width:none] md:h-52 md:overflow-x-visible md:p-7 lg:h-64 dark:bg-[#0d1117] [&::-webkit-scrollbar]:hidden">
           <Image
@@ -211,7 +247,7 @@ export default async function HomePage() {
 
       <PortfolioDivider />
 
-      <SectionFrame id="about-preview" railClassName="home-about-rail">
+      <SectionFrame id="about-preview" railClassName="py-10 md:py-16 home-about-rail">
         <div className="flex flex-col gap-11 md:gap-12">
           <div className="flex flex-col gap-4">
             <p className="portfolio-label inline-flex items-center gap-2">
@@ -272,13 +308,13 @@ export default async function HomePage() {
       <PortfolioDivider />
 
       <SectionFrame id="experience">
-        <div className="flex flex-col gap-0">
+        <div className="flex flex-col gap-0 py-10 md:py-16">
           <p className="portfolio-label inline-flex items-center gap-2">
             <BriefcaseBusiness className="size-3.5" aria-hidden="true" />
             Experience
           </p>
           <div className="mt-8 border-y border-border">
-            {experience.map((item, index) => (
+            {homepageExperience.map((item, index) => (
               <div
                 key={item.role}
                 className="flex flex-col gap-4 border-b border-dashed border-border py-8 last:border-b-0 sm:py-10"
@@ -301,13 +337,22 @@ export default async function HomePage() {
               </div>
             ))}
           </div>
+          <div className="mt-6 flex">
+            <Link
+              className={buttonVariants({ variant: "outline", size: "lg" })}
+              href="/about"
+            >
+              Learn more
+              <ArrowRight />
+            </Link>
+          </div>
         </div>
       </SectionFrame>
 
       <PortfolioDivider />
 
-      <SectionFrame id="work" className="max-w-none p-0">
-        <div className="mx-auto flex max-w-3xl flex-col gap-5 px-4 py-10 sm:px-7 md:flex-row md:items-center md:justify-between">
+      <SectionFrame id="work" className="pt-10 md:pt-16 max-w-none pb-0 p-0">
+        <div className="pt-10 md:pt-16 mx-auto flex max-w-3xl flex-col gap-5 px-4 py-10 sm:px-7 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="portfolio-label inline-flex items-center gap-2">
               <FolderOpen className="size-3.5" aria-hidden="true" />
@@ -325,7 +370,7 @@ export default async function HomePage() {
             <ArrowRight />
           </Link>
         </div>
-        <div className="grid grid-cols-1 border border-border md:grid-cols-2">
+        <div className="grid grid-cols-1 border-t border-border md:grid-cols-2">
           {contentError ? (
             <div className="p-4 md:col-span-2">
               <ContentError
@@ -334,13 +379,13 @@ export default async function HomePage() {
               />
             </div>
           ) : null}
-          {!contentError && featuredProjects.length === 0 ? (
+          {!contentError && homepageProjects.length === 0 ? (
             <div className="p-4 md:col-span-2">
               <ContentError title="No featured projects found" />
             </div>
           ) : null}
           {!contentError
-            ? featuredProjects.map((project, index) => (
+            ? homepageProjects.map((project, index) => (
               <div
                 key={project.slug}
                 className={cn(
@@ -354,17 +399,21 @@ export default async function HomePage() {
                   image={project.frontmatter.cover}
                   index={index + 1}
                   meta={`${project.frontmatter.year} / ${project.frontmatter.role}`}
-                  title={project.frontmatter.title}
+                  title={
+                    homepageProjectTitles[project.slug] ??
+                    project.frontmatter.title
+                  }
                 />
               </div>
             ))
             : null}
         </div>
+
       </SectionFrame>
 
       <PortfolioDivider />
 
-      <SectionFrame id="contact" className="pb-20">
+      <SectionFrame id="contact" className="py-10 md:py-16 pb-20">
         <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_220px] md:items-center">
           <div className="flex flex-col gap-4">
             <p className="portfolio-label inline-flex items-center gap-2">

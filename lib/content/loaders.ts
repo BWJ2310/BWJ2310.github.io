@@ -9,14 +9,15 @@ const rootProjectIndexPattern = /^[^/]+\/index\.mdx$/
 const currentTimelinePattern = /\b(ongoing|present|current|now)\b/i
 const yearPattern = /\b(19|20)\d{2}\b/g
 
-function getTimelineRank(year: string) {
-  if (currentTimelinePattern.test(year)) {
-    return Number.POSITIVE_INFINITY
-  }
-
+function getTimelineSortKey(year: string) {
   const years = year.match(yearPattern)?.map(Number) ?? []
+  const rank =
+    years.length > 0 ? Math.max(...years) : Number.NEGATIVE_INFINITY
 
-  return years.length > 0 ? Math.max(...years) : Number.NEGATIVE_INFINITY
+  return {
+    current: currentTimelinePattern.test(year),
+    rank,
+  }
 }
 
 export async function getProjectSlugs() {
@@ -35,11 +36,15 @@ export async function getProjectArchive() {
   )
 
   return projects.sort((a, b) => {
-    const aRank = getTimelineRank(a.frontmatter.year)
-    const bRank = getTimelineRank(b.frontmatter.year)
+    const aKey = getTimelineSortKey(a.frontmatter.year)
+    const bKey = getTimelineSortKey(b.frontmatter.year)
 
-    if (aRank !== bRank) {
-      return aRank > bRank ? -1 : 1
+    if (aKey.current !== bKey.current) {
+      return aKey.current ? -1 : 1
+    }
+
+    if (aKey.rank !== bKey.rank) {
+      return aKey.rank > bKey.rank ? -1 : 1
     }
 
     return a.frontmatter.title.localeCompare(b.frontmatter.title)

@@ -13,13 +13,12 @@ export function SectionFrame({
   children,
   className,
   id,
-  paddingClassName = "px-4 py-10 sm:px-7 md:py-16",
   railClassName,
 }: SectionFrameProps) {
   return (
-    <section id={id} className="portfolio-container">
+    <section id={id} className="portfolio-container ">
       <div className={cn("portfolio-rail", railClassName)}>
-        <div className={cn("mx-auto max-w-3xl", paddingClassName, className)}>
+        <div className={cn("mx-auto max-w-3xl", className)}>
           {children}
         </div>
       </div>
