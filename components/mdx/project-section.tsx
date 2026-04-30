@@ -58,7 +58,7 @@ export function ProjectSection({
 
   return (
     <section
-      className="my-14 grid gap-7 border-t border-border pt-10 first:mt-0 first:border-t-0 lg:grid-cols-[minmax(260px,0.34fr)_minmax(0,1fr)] lg:gap-10 lg:pt-14"
+      className="my-14 grid gap-7 border-t border-border p-10 first:mt-0 first:border-t-0 lg:grid-cols-[minmax(260px,0.34fr)_minmax(0,1fr)] lg:gap-10 lg:pt-14"
       data-project-section
     >
       <aside

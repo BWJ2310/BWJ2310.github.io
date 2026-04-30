@@ -22,7 +22,7 @@ export function PageHeader({ cover, description, eyebrow, meta = [], title, vari
     <div
       className={cn(
         "text-card-foreground",
-        cover && "grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(260px,0.58fr)] md:items-start",
+        cover && "px-10 grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(260px,0.58fr)] md:items-start",
         immersive && "md:grid-cols-[minmax(0,0.92fr)_minmax(280px,0.86fr)]",
       )}
     >

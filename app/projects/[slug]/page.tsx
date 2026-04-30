@@ -81,7 +81,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   }
 
   return (
-    <SectionFrame className="max-w-6xl">
+    <SectionFrame className="py-10 md:py-16 max-w-6xl">
       <PageHeader
         cover={project.frontmatter.cover}
         description={project.frontmatter.description}
