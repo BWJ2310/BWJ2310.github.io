@@ -351,7 +351,7 @@ export default async function HomePage() {
 
       <PortfolioDivider />
 
-      <SectionFrame id="work" className="pt-10 md:pt-16 max-w-none pb-0 p-0">
+      <SectionFrame id="work" className="max-w-none pb-0 p-0">
         <div className="pt-10 md:pt-16 mx-auto flex max-w-3xl flex-col gap-5 px-4 py-10 sm:px-7 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="portfolio-label inline-flex items-center gap-2">
