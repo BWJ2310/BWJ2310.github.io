@@ -1,6 +1,6 @@
 ---
 title: "Sox"
-description: "A long-running personal robotics project inspired by the Lightyear character and focused on voice, personality, and motion."
+description: "A long-running personal robotics project that moved from digital sculpture and CAD into a physical prototype with voice conversation and motion commands."
 status: "Completed"
 year: "2022-2024"
 role: "Builder"
@@ -13,15 +13,17 @@ bodyWidth: "full"
 
 <ProjectSection
   eyebrow="Sox"
-  title='A robot cat contains voice assistant and "cat -like" motion to reproduce the animated character "Sox" from Lightyear movie'
+  title='A robot cat with voice interaction, ChatGPT conversation, and "cat-like" motion inspired by Sox from Lightyear'
   summary="The longest and biggest personal project I worked on from June 2022 through 2024."
 >
   <ProjectSectionCopy>
     Used Coqui TTS to generate a customized voice, Mycroft for voice assistance,
     and BotPress to filter commands or normal chats before switching to the GPT
-    API for personality. The project also includes facial recognition and
-    distance measurement for better motion performance. It ran from June 2022
-    through 2024.
+    API for personality. The physical prototype can respond to commands to sit,
+    stand, and walk, and it connects to ChatGPT so users can talk with it
+    verbally. The project also includes facial recognition and distance
+    measurement for better motion performance. It ran from June 2022 through
+    2024.
   </ProjectSectionCopy>
   <ProjectSectionMedia>
     <MediaGrid>
@@ -38,13 +40,38 @@ bodyWidth: "full"
 </ProjectSection>
 
 <ProjectSection
+  eyebrow="Physical prototype"
+  title="Physical prototype"
+  summary="A clear acrylic hardware build for motion command testing and voice conversation."
+>
+  <ProjectSectionCopy>
+    This prototype brings the CAD, servo layout, LED eye panel, camera, and
+    voice stack into a working hardware platform. It responds to sit, stand,
+    and walk commands while using a ChatGPT connection for spoken interaction.
+  </ProjectSectionCopy>
+  <ProjectSectionMedia>
+    <MediaGrid>
+      <WideImage
+        src="./images/11-physical-prototype.jpg"
+        alt="Physical Sox prototype with clear acrylic body, camera, LED eye panel, and labeled servo legs"
+        caption="Physical prototype for motion commands and verbal ChatGPT interaction"
+        width={900}
+        height={1600}
+        aspect="portrait"
+        tone="feature"
+      />
+    </MediaGrid>
+  </ProjectSectionMedia>
+</ProjectSection>
+
+<ProjectSection
   eyebrow="Development record"
   title="Development record"
   summary="Development record through 2024"
   reverse
 >
   <ProjectSectionCopy>
-    I still need to clean up the CAD files, put them into Isaac Gym for motion training, and figure out how to connect Mycroft, BotPress, and ChatGPT so the robot can read real-time data, such as weather, and chat like a normal person.
+    I still need to clean up the CAD files, put them into Isaac Gym for motion training, and keep improving the voice pipeline so the robot can read real-time data, such as weather, and chat more naturally.
 
     I am also considering a mouse accessory that the cat can play with. It could be trained in Isaac Gym for better "cat-like" motion simulation.
 

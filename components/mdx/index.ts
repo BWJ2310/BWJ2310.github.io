@@ -4,6 +4,7 @@ import type { ImgHTMLAttributes, ReactNode } from "react"
 import { MediaGrid } from "./media-grid"
 import { ProcessTimeline } from "./process-timeline"
 import { ProjectHero } from "./project-hero"
+import { ProjectLinks } from "./project-links"
 import { ProjectSection, ProjectSectionCopy, ProjectSectionMedia } from "./project-section"
 import { PullQuote } from "./pull-quote"
 import { ResultStats } from "./result-stats"
@@ -79,6 +80,7 @@ export function createMdxComponents(
       }),
     ProcessTimeline,
     ProjectHero,
+    ProjectLinks,
     ProjectSection,
     ProjectSectionCopy,
     ProjectSectionMedia,
@@ -102,6 +104,7 @@ export const mdxComponents = {
   MediaGrid,
   ProcessTimeline,
   ProjectHero,
+  ProjectLinks,
   ProjectSection,
   ProjectSectionCopy,
   ProjectSectionMedia,
